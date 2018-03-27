@@ -1,13 +1,18 @@
+// currently not in use
+
 export const isEmptyArray = /\[\]$/;
 export const isArray = /\[(\d+)?]$/;
 export const isIndexNumber = /^d+$/;
 
 
-export const propType = (propertyName) => {
-  if(propertyName.match(isEmptyArray)) {
-    return [];
+export const assignProperty = (ref, propertyName, value) => {
+  let prop = propertyName;
+  if (propertyName.match(isEmptyArray)) {
+    prop = propertyName.replace(isEmptyArray, '');
+    ref[prop] = [value];
+    return ref[prop];
   }
-  if (propertyName.match(isArray)) {
-    return []
-  } 
+
+  //simple prop
+  ref[prop] = value;
 };

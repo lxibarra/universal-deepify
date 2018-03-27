@@ -1,11 +1,11 @@
 {
-  "name": "universal-deep-object",
+  "name": "universal-deepify",
   "version": "1.0.0",
   "description": "Will get/set properties and it can also execute functions nested deep in a object",
-  "main": "index.js",
+  "main": "lib/deepify",
   "scripts": {
-    "test": "mocha tests/**.spec.* -r chai/register-expect --require babel-core/register",
-    "compile": ""
+    "build": "webpack --output-library deepify --output-library-target umd --optimize-minimize",
+    "test": "mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
   },
   "keywords": [
     "deep",
