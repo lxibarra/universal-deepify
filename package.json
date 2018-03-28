@@ -5,7 +5,7 @@
   "main": "lib/deepify",
   "scripts": {
     "build": "webpack --output-library deepify --output-library-target umd --optimize-minimize",
-    "test": "mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
+    "test": "webpack --output-library deepify --output-library-target umd && mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
   },
   "keywords": [
     "deep",
