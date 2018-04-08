@@ -40,5 +40,14 @@ describe('Test deepify', () => {
     expect(obj.person.phones instanceof Array).equal(true);
     expect(obj.person.phones.length).equal(1);
     expect(obj.person.phones[0]).equal('423432');
+    const obj2 = deepify.set(obj, 'person.phones[1]', 'wow');
+    console.log('OBJ2', obj2);
+    // this fails because im always assiging new value when it already exists check on
+    // else statement
+    expect(obj2.person.phones[0]).equal('423432');
+    expect(obj2.person.phones[1]).equal('wow');
   });
+
+
+
 });
