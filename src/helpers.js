@@ -35,7 +35,17 @@ export const setProperty = (ref, propertyName, value) => {
             _ref[propName].push(value);
             _ref = _ref[propName];
           } else if(prop.match(indexArrayRegxp)) {
-            // i left here
+            const propIndex = parseInt([...prop.match(indexArrayRegxp)][0].replace(/[\[\]]/gi, ''), 10);
+            const cleanPropName = prop.replace(indexArrayRegxp, '');
+             if(_ref[cleanPropName] instanceof Array) {
+               if(propIndex > _ref[cleanPropName].lenght) {
+                 _ref[cleanPropName].push(value);
+               } else {
+                 _ref[cleanPropName].splice(propIndex, 0, value);
+               }
+             } else {
+               _ref[cleanPropName] = [value];
+             }
           } else { // simple prop name
             _ref[prop] = value;
           }

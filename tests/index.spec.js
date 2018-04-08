@@ -35,10 +35,10 @@ describe('Test deepify', () => {
     expect(obj.person.phones[0]).equal('hello');
   });
 
-  it('set array prop person.phones[2] with item 423432', () => {
-    const obj = deepify.set({}, 'person.phones[2]', '423432');
-    //expect(obj.person.phones instanceof Array).equal(true);
-    //expect(obj.person.phones.length).equal(3);
-    //expect(obj.person.phones[0]).equal('hello');
+  it('setting array prop person.phones[3] with item 423432 results in array of 1 in length with item value 423432', () => {
+    const obj = deepify.set({}, 'person.phones[3]', '423432');
+    expect(obj.person.phones instanceof Array).equal(true);
+    expect(obj.person.phones.length).equal(1);
+    expect(obj.person.phones[0]).equal('423432');
   });
 });
