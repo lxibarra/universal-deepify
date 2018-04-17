@@ -8,6 +8,12 @@ describe('Test deepify', () => {
     expect(total).equal(6);
   });
 
+  it('Passing nothing will return the same object', () => {
+      const obj = { a:100 };
+      const obj2 = deepify.set(obj);
+      expect(obj2).equal(obj);
+  });
+
   it('newely created object is not undefined', ()=> {
     const obj = deepify.set({}, 'person.last', 'ibarra');
     expect(obj.person).not.equal(undefined);
@@ -41,13 +47,29 @@ describe('Test deepify', () => {
     expect(obj.person.phones.length).equal(1);
     expect(obj.person.phones[0]).equal('423432');
     const obj2 = deepify.set(obj, 'person.phones[1]', 'wow');
-    console.log('OBJ2', obj2);
-    // this fails because im always assiging new value when it already exists check on
-    // else statement
     expect(obj2.person.phones[0]).equal('423432');
     expect(obj2.person.phones[1]).equal('wow');
   });
 
+  it('set a prop to a number and keep other existing props', ()=> {
+    const obj = { a:10, b:[1,2,3,4,5] };
+    const obj2 = deepify.set(obj, 'price', 100);
+    expect(obj2.a).equal(10);
+    expect(obj2.b instanceof Array).equal(true);
+    expect(typeof obj2.price === 'number').equal(true);
+    expect(obj2.price).equal(100);
+  });
 
+  describe('Test nested objects in arrays', ()=> {
+      it('set deep as person.assets[0].houseId = 1000', ()=> {
+        // i left here
+        const obj = deepify.set({}, 'person.assets[0].houseId', 1000);
+        console.log(obj, 'incorrect setting of data');
+        expect(obj.person.assets instanceof Array).equal(true);
+        //expect(typeof obj.person.assets[0] === 'object').equal(true);
+        //expect(obj.person.assets.length).equal(1);
+        //expect(obj.person.assets[0].houseId).equal(1000);
+      });
+  });
 
 });

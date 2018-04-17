@@ -53,16 +53,25 @@ export const setProperty = (ref, propertyName, value) => {
             _ref = setEmptyArray(_ref, prop, value);
           } else if(prop.match(indexArrayRegxp)) {
             _ref = setArrayAtPosition(_ref, prop, value);
-          } else { // simple prop name
+          } else { // simple prop
             _ref[prop] = value;
           }
-
         } else {
-          // have to check prop type here too.
-          // dont directly assign need to check if value is already there
-          // or if object is not null.
-          _ref[prop] = {};
-          _ref = _ref[prop];
+          if(_ref && _ref.hasOwnProperty(prop)) {
+            _ref = _ref[prop];
+          } else {
+            if (prop.match(emptyArrayRegxp)) {
+              // if we pass something like assets[0] or assets[100] we need to handle it
+              // come up with algo
+              // we need to see
+              // _ref = setEmptyArray(_ref, prop, value);
+            } else if(prop.match(indexArrayRegxp)) {
+              // _ref = setArrayAtPosition(_ref, prop, value);
+            } else { // pass reference
+              _ref[prop] = {};
+              _ref = _ref[prop];
+            }
+          }
         }
     });
 
