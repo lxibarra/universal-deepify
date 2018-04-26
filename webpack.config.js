@@ -10,7 +10,7 @@ module.exports = {
     path: path.join(__dirname, ""),
 		filename: "[name].js"
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {

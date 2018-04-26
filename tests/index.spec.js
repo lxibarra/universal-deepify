@@ -62,13 +62,21 @@ describe('Test deepify', () => {
 
   describe('Test nested objects in arrays', ()=> {
       it('set deep as person.assets[0].houseId = 1000', ()=> {
-        // i left here
         const obj = deepify.set({}, 'person.assets[0].houseId', 1000);
-        console.log(obj, 'incorrect setting of data');
         expect(obj.person.assets instanceof Array).equal(true);
-        //expect(typeof obj.person.assets[0] === 'object').equal(true);
+        expect(typeof obj.person.assets[0] === 'object').equal(true);
+        expect(obj.person.assets.length).equal(1);
+        expect(obj.person.assets[0].houseId).equal(1000);
+      });
+
+      it('set deep as person.assets[].msg = "cheers"', ()=> {
+        const obj = deepify.set({}, 'person.assets[].msg', 'cheers');
+        expect(obj.person.assets instanceof Array).equal(true);
+        // i left here setEmptyArrayReference is not correct i think 
+        console.log(obj);
+        expect(typeof obj.person.assets[0] === 'object').equal(true);
         //expect(obj.person.assets.length).equal(1);
-        //expect(obj.person.assets[0].houseId).equal(1000);
+        // expect(obj.person.assets[0].msg).equal('cheers');
       });
   });
 

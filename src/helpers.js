@@ -1,6 +1,7 @@
 const emptyArrayRegxp = /\[\]$/;
 const indexArrayRegxp = /\[\d+\]$/;
 const numberRegex = /^\d+$/;
+const arrayBrackets = /[\[\]]/gi;
 
 export const isMutable = (mutate, ref) => {
   if (typeof mutate === 'boolean') {
@@ -25,9 +26,20 @@ const setEmptyArray = (ref, propertyName, value) => {
   return _ref;
 };
 
+const setEmptyArrayReference = (ref, propertyName) => {
+  // this method is not returnign the right reference
+  let _ref = Object.assign(ref);
+  const propName = propertyName.replace(emptyArrayRegxp, '');
+  _ref[propName] = [];
+  _ref = _ref[propName];
+  return _ref;
+};
+
+const getIndexFromPropName = (propertyName) => parseInt([...propertyName.match(indexArrayRegxp)][0].replace(arrayBrackets, ''), 10);
+
 const setArrayAtPosition = (ref, propertyName, value) => {
   let _ref = Object.assign(ref);
-  const propIndex = parseInt([...propertyName.match(indexArrayRegxp)][0].replace(/[\[\]]/gi, ''), 10);
+  const propIndex = getIndexFromPropName(propertyName);  // parseInt([...propertyName.match(indexArrayRegxp)][0].replace(/[\[\]]/gi, ''), 10);
   const cleanPropName = propertyName.replace(indexArrayRegxp, '');
    if(_ref[cleanPropName] instanceof Array) {
      if(propIndex > _ref[cleanPropName].lenght) {
@@ -39,6 +51,26 @@ const setArrayAtPosition = (ref, propertyName, value) => {
      _ref[cleanPropName] = [value];
    }
    return _ref;
+};
+
+const setArrayReferenceAtPosition = (ref, propertyName) => {
+  let _ref = Object.assign(ref);
+  const propIndex = getIndexFromPropName(propertyName);
+  const cleanPropName = propertyName.replace(indexArrayRegxp, '');
+  const newRef = {};
+  if(_ref[cleanPropName] instanceof Array) {
+    if(propIndex > _ref[cleanPropName].lenght) {
+      _ref[cleanPropName].push(newRef);
+      return newRef;
+    } else {
+      _ref[cleanPropName].splice(propIndex, 0, newRef);
+      return newRef;
+    }
+  } else {
+    _ref[cleanPropName] = [newRef];
+    return newRef;
+  }
+  return newRef;
 };
 
 export const setProperty = (ref, propertyName, value) => {
@@ -61,13 +93,10 @@ export const setProperty = (ref, propertyName, value) => {
             _ref = _ref[prop];
           } else {
             if (prop.match(emptyArrayRegxp)) {
-              // if we pass something like assets[0] or assets[100] we need to handle it
-              // come up with algo
-              // we need to see
-              // _ref = setEmptyArray(_ref, prop, value);
+              _ref = setEmptyArrayReference(_ref, prop);
             } else if(prop.match(indexArrayRegxp)) {
-              // _ref = setArrayAtPosition(_ref, prop, value);
-            } else { // pass reference
+               _ref = setArrayReferenceAtPosition(_ref, prop);
+            } else {
               _ref[prop] = {};
               _ref = _ref[prop];
             }
