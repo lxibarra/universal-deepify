@@ -21,7 +21,9 @@ const setEmptyArray = (ref, propertyName, value) => {
   let _ref = Object.assign(ref);
   const propName = propertyName.replace(emptyArrayRegxp, '');
   _ref[propName] = [];
-  _ref[propName].push(value);
+  if(typeof value !== 'undefined') {
+    _ref[propName].push(value);
+  }
   _ref = _ref[propName];
   return _ref;
 };
@@ -63,8 +65,15 @@ const setArrayReferenceAtPosition = (ref, propertyName) => {
       _ref[cleanPropName].push(newRef);
       return newRef;
     } else {
-      _ref[cleanPropName].splice(propIndex, 0, newRef);
-      return newRef;
+      /*_ref[cleanPropName].splice(propIndex, 0, newRef);
+      return newRef;*/
+      const currentRef = _ref[cleanPropName][propIndex];
+      if(typeof currentRef !== 'undefined') {
+        return currentRef;
+      } else {
+        ref[cleanPropName].splice(propIndex, 0, newRef);
+        return newRef;
+      }
     }
   } else {
     _ref[cleanPropName] = [newRef];
@@ -85,8 +94,15 @@ export const setProperty = (ref, propertyName, value) => {
             _ref = setEmptyArray(_ref, prop, value);
           } else if(prop.match(indexArrayRegxp)) {
             _ref = setArrayAtPosition(_ref, prop, value);
-          } else { // simple prop
-            _ref[prop] = value;
+          } else {
+            if (_ref instanceof Array) {
+              const element = {
+                [prop]: value
+              };
+              _ref.push(element);
+            } else {
+              _ref[prop] = value;
+            }
           }
         } else {
           if(_ref && _ref.hasOwnProperty(prop)) {
@@ -97,8 +113,16 @@ export const setProperty = (ref, propertyName, value) => {
             } else if(prop.match(indexArrayRegxp)) {
                _ref = setArrayReferenceAtPosition(_ref, prop);
             } else {
-              _ref[prop] = {};
-              _ref = _ref[prop];
+              if(_ref instanceof Array) {
+                const element = {
+                  [prop]:{}
+                };
+                _ref.push(element);
+                _ref = element[prop];
+              } else {
+                _ref[prop] = {};
+                _ref = _ref[prop];
+              }
             }
           }
         }

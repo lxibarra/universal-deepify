@@ -60,6 +60,7 @@ describe('Test deepify', () => {
     expect(obj2.price).equal(100);
   });
 
+
   describe('Test nested objects in arrays', ()=> {
       it('set deep as person.assets[0].houseId = 1000', ()=> {
         const obj = deepify.set({}, 'person.assets[0].houseId', 1000);
@@ -72,12 +73,47 @@ describe('Test deepify', () => {
       it('set deep as person.assets[].msg = "cheers"', ()=> {
         const obj = deepify.set({}, 'person.assets[].msg', 'cheers');
         expect(obj.person.assets instanceof Array).equal(true);
-        // i left here setEmptyArrayReference is not correct i think 
-        console.log(obj);
         expect(typeof obj.person.assets[0] === 'object').equal(true);
-        //expect(obj.person.assets.length).equal(1);
-        // expect(obj.person.assets[0].msg).equal('cheers');
+        expect(obj.person.assets.length).equal(1);
+        expect(obj.person.assets[0].msg).equal('cheers');
       });
+
+      it('set deep as person.assets[100].msg = "hello im an array of length 1"', ()=> {
+        const obj = deepify.set({}, 'person.assets[100].msg', 'hello im an array of length 1');
+        expect(obj.person.assets instanceof Array).equal(true);
+        expect(typeof obj.person.assets[0] === 'object').equal(true);
+        expect(obj.person.assets.length).equal(1);
+        expect(obj.person.assets[0].msg).equal('hello im an array of length 1');
+      });
+
+      it('Set an array of 10 and insert value in position 5. person.assets[10]', () => {
+        const obj = deepify.set({}, 'person.assets[]');
+        for(let c = 0; c<10;  c++) {
+            obj.person.assets.push(c+1);
+        }
+        expect(obj.person.assets.length).equal(10);
+        const obj2 = deepify.set(obj, 'person.assets[4]', 5.5);
+        expect(obj2.person.assets[4]).equal(5.5);
+      });
+
+      it('Deep object created person.prop1.prop2.prop3.value = 100', () => {
+        const obj = deepify.set({}, 'person.prop1.prop2.prop3');
+        expect(obj.person.prop1.prop2.hasOwnProperty('prop3')).equal(true);
+        const obj2 = deepify.set(obj, 'person.prop1.prop2.prop3', { value: 100 });
+        expect(obj2.person.prop1.prop2.prop3.value).equal(100);
+      });
+
+      it('Deep object created person.cars[].style.color = "red" && person.cars[0].price = 1000', () => {
+        const obj = deepify.set({}, 'person.cars[].style.color', 'red');
+        expect(obj.person.cars instanceof Array).equal(true);
+        expect(typeof obj.person.cars[0].style).equal('object');
+        expect(obj.person.cars[0].style.color).equal('red');
+        const obj2 = deepify.set(obj, 'person.cars[0].price', 1000);
+        expect(obj2.person.cars[0].price).equal(1000);
+        expect(obj2.person.cars[0].style.color).equal('red');
+
+      });
+
   });
 
 });
