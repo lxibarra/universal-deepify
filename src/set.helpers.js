@@ -1,7 +1,4 @@
-const emptyArrayRegxp = /\[\]$/;
-const indexArrayRegxp = /\[\d+\]$/;
-const numberRegex = /^\d+$/;
-const arrayBrackets = /[\[\]]/gi;
+import { emptyArrayRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from './regex.expressions';
 
 export const isMutable = (mutate, ref) => {
   if (typeof mutate === 'boolean') {

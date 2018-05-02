@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { deepify } from '../src/index';
 
-describe('Test deepify', () => {
+describe('Test deepifySet', () => {
   it('ES-ENV working for tests', () => {
     const arr = [1,2,3];
     const total = arr.reduce((prev, next) => prev + next, 0);
