@@ -1,15 +1,20 @@
 
-
-// for now all code will be here but it must be refactored into its own functions
 export const getProperty = (ref, propertyName = '') => {
   if(ref === null || typeof ref === 'undefined') {
     return null;
   }
 
-  // handle prop splitting.
-  const props = propertyName.slice(',');
+  const props = propertyName.split('.');
 
   if (typeof ref === 'object' && (ref instanceof Array) === false) {
-    return ref[propertyName];
+    let _ref = ref;
+    props.forEach((prop) => {
+      if (typeof _ref !== 'undefined' && _ref.hasOwnProperty(prop)) {
+        _ref = _ref[prop];
+      } else {
+        _ref = undefined;
+      }
+    });
+    return _ref;
   }
 };
