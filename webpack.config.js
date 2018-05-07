@@ -5,7 +5,7 @@ module.exports = {
     'lib/deepify': './src/index.js',
     'tests-output/deepifySet': './tests/deepifySet.spec.js',
     'tests-output/set.helpers': './tests/set.helpers.spec.js',
-    'tests-output/get.helpers': './tests/get.helpers.spec.js'
+    'tests-output/deepifyGet': './tests/deepifyGet.spec.js'
   },
   output: {
     path: path.join(__dirname, ""),
