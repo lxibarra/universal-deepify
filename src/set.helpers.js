@@ -1,4 +1,5 @@
 import { emptyArrayRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from './regex.expressions';
+import { getIndexFromPropName } from './helpers';
 
 export const isMutable = (mutate, ref) => {
   if (typeof mutate === 'boolean') {
@@ -34,11 +35,10 @@ const setEmptyArrayReference = (ref, propertyName) => {
   return _ref;
 };
 
-const getIndexFromPropName = (propertyName) => parseInt([...propertyName.match(indexArrayRegxp)][0].replace(arrayBrackets, ''), 10);
 
 const setArrayAtPosition = (ref, propertyName, value) => {
   let _ref = Object.assign(ref);
-  const propIndex = getIndexFromPropName(propertyName);  // parseInt([...propertyName.match(indexArrayRegxp)][0].replace(/[\[\]]/gi, ''), 10);
+  const propIndex = getIndexFromPropName(propertyName);
   const cleanPropName = propertyName.replace(indexArrayRegxp, '');
    if(_ref[cleanPropName] instanceof Array) {
      if(propIndex > _ref[cleanPropName].lenght) {
