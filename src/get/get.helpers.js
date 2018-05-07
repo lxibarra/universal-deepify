@@ -1,5 +1,5 @@
-import { emptyArrayRegxp, indexArrayRefRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from '../regex.expressions';
-import { getIndexFromPropName } from '../helpers';
+import { emptyArrayRegxp, indexArrayRefRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from '../shared/regex.expressions';
+import { getIndexFromPropName } from '../shared/helpers';
 
 export const getArrayAtPosition = (ref, propertyName) => {
   const propIndex = getIndexFromPropName(propertyName);

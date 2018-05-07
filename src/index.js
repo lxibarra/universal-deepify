@@ -1,22 +1,7 @@
-import { isMutable, deepCopy, setProperty } from './set.helpers';
-// TODO: separate set and get from the object so tree shaking can remove the unnecessary javascript
-//       taking care of the configuration.
-//
-//       if not more use cases for set work on set.
-export const deepify = {
-  mutate: false,
-  configure: function(mutate) {
-    this.mutate = mutate;
-  },
-  // give the user the ability to mutate or not mutate.
-  set: function(objRef, property, value, mutate) {
-    if (typeof property === 'string' && property.length > 0) {
-      const ref = isMutable(mutate, this) ? objRef : deepCopy(objRef);
-      if (ref !== null) {
-        setProperty(ref, property, value);
-      }
-      return ref;
-    }
-    return objRef;
-  }
-};
+import { deepifySet as _set } from './deepifySet';
+import { deepifyGet as _get } from './deepifyGet';
+// TODO: Work with configuration to set it.
+//       Evaluate the way to set a log for it.
+
+export const deepifySet = _set;
+export const deepifyGet = _get;

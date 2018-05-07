@@ -1,5 +1,5 @@
-import { emptyArrayRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from './regex.expressions';
-import { getIndexFromPropName } from './helpers';
+import { emptyArrayRegxp, indexArrayRegxp, numberRegex, arrayBrackets } from '../shared/regex.expressions';
+import { getIndexFromPropName } from '../shared/helpers';
 
 export const isMutable = (mutate, ref) => {
   if (typeof mutate === 'boolean') {

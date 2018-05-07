@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isMutable, deepCopy } from '../src/set.helpers';
+import { isMutable, deepCopy } from '../src/set/set.helpers';
 
 describe('Test deepify set helpers', () => {
   it('Test isMutable', () => {
