@@ -2,10 +2,11 @@
   "name": "universal-deepify",
   "version": "1.0.0",
   "description": "Will get/set properties and it can also execute functions nested deep in a object",
-  "main": "lib/deepify",
+  "main": "lib/deepify.js",
   "scripts": {
-    "build": "webpack --output-library deepify --output-library-target umd --optimize-minimize",
-    "test": "webpack --output-library deepify --output-library-target umd && mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
+    "test-nyc": "nyc --reporter=lcov mocha tests/**.spec.* -r chai/register-expect --require babel-core/register",
+    "build": "webpack --output-library deepify --optimize-minimize",
+    "test": "npm run build  && mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
   },
   "keywords": [
     "deep",
@@ -19,13 +20,15 @@
   "author": "Ricardo Ibarra <coder10@gmail.com> (http://doitfy.com)",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-istanbul": "^4.1.6",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
-    "coveralls": "^3.0.0",
     "mocha": "^5.0.5",
     "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.7.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.2.0",
     "webpack-cli": "^2.0.13"

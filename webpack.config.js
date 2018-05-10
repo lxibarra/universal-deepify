@@ -9,9 +9,11 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, ""),
-		filename: "[name].js"
+		filename: "[name].js",
+    libraryTarget:'umd',
+    globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {

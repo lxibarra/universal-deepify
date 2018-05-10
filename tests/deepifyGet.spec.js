@@ -1,6 +1,7 @@
-import { deepifyGet } from '../src/deepifyGet';
+import { expect } from 'chai';
+import { deepifyGet } from '../src/index';
 
-describe('Test deepify get helpers', ()=> {
+describe('Test deepifyGet', ()=> {
   let testObject;
   let wierdObject;
 
