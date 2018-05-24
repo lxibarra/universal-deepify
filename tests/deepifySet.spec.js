@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { deepifySet } from '../src/index';
+//import { deepifySet } from '../src/index';
+import { deepifySet } from '../lib/deepify';
 
 describe('Test deepifySet', () => {
   it('ES-ENV working for tests', () => {

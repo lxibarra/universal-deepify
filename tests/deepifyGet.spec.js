@@ -1,5 +1,10 @@
 import { expect } from 'chai';
-import { deepifyGet } from '../src/index';
+//import { deepifyGet } from '../src/index';
+// an alternative would be to test using an alias for lib or src
+// example if iported as deepifyGetLib
+//   expect(deepifyGet({ person:{ lastName:'Ibarra' } }, 'person.lastName')).equal('Ibarra');
+//   expect(deepifyGetLib({ person:{ lastName:'Ibarra' } }, 'person.lastName')).equal('Ibarra');
+import { deepifyGet  } from '../lib/deepify';
 
 describe('Test deepifyGet', ()=> {
   let testObject;

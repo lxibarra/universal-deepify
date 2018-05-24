@@ -1,3 +1,7 @@
+/*
+  if tests are run againts lib/deepify you need to exclude this file because
+  it will be taken as a separate set of tests for a different file.
+*/
 import { expect } from 'chai';
 import { isMutable, deepCopy } from '../src/set/set.helpers';
 
