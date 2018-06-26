@@ -6,7 +6,7 @@
   "scripts": {
     "test-nyc": "nyc mocha tests/**.spec.* -r chai/register-expect --require babel-core/register",
     "build": "webpack --output-library deepify --optimize-minimize",
-    "test": "npm run build  && mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
+    "test": "npm run build  && nyc mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
   },
   "nyc": {
     "sourceMap": true,
