@@ -13,7 +13,7 @@ module.exports = {
     libraryTarget:'umd',
     globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
