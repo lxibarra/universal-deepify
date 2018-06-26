@@ -1,5 +1,7 @@
 # Universal Deep Object Getter Setter #
 ## deepify.js ##
+[![Build Status](https://travis-ci.org/lxibarra/universal-deepify.svg?branch=master)](https://travis-ci.org/lxibarra/universal-deepify)
+
 
 This npm package tries to solve the problem of deep object get and set by using a dot convention. The idea came because i wanted to explore different ways of handling these scenarios.
 
