@@ -4,9 +4,10 @@
   "description": "Will get/set properties and it can also execute functions nested deep in a object",
   "main": "lib/deepify.js",
   "scripts": {
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test-nyc": "nyc mocha tests/**.spec.* -r chai/register-expect --require babel-core/register",
     "build": "webpack --output-library deepify --optimize-minimize",
-    "test": "npm run build  && nyc mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
+    "test": "npm run build  && nyc  --require babel-core/register mocha tests/**.spec.* -r chai/register-expect --require babel-core/register"
   },
   "nyc": {
     "sourceMap": true,
